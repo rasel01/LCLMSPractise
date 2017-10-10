@@ -3,26 +3,22 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///// <reference types="jquery" />
-/// <reference path="../jquery/jquery.d.ts" />
 
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
-declare global {
-    interface Function {
-        $inject?: string[];
-    }
+interface Function {
+    $inject?: string[];
 }
 
-//export as namespace angular;
-export as namespace ng;
-
+// Collapse angular into ng
+//import ng = angular;
 // Support AMD require
-export = angular;
-
-import ng = angular;
+declare module 'angular' {
+    export = angular;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
@@ -322,7 +318,7 @@ declare namespace angular {
         $updateClass(newClasses: string, oldClasses: string): void;
 
         /**
-         * index.d.tsSet DOM element attribute value.
+         * Set DOM element attribute value.
          */
         $set(key: string, value: any): void;
 
@@ -986,7 +982,9 @@ declare namespace angular {
      * See http://docs.angularjs.org/api/ng/service/$q
      */
     interface IQService {
+        new <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         new <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
+        <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
 
         /**
@@ -1256,11 +1254,6 @@ declare namespace angular {
         (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
-
-        /**
-         * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
-         */
-        isSlotFilled(slotName: string): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1766,7 +1759,7 @@ declare namespace angular {
         $doCheck?(): void;
         /**
          * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
-         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * properties that have changed, and the values are an {@link IChangesObject} object of the form
          * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
          * cloning the bound value to prevent accidental mutation of the outer value.
          */
@@ -1869,7 +1862,7 @@ declare namespace angular {
      * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
      * only those returned from angular.element.
      * See: http://docs.angularjs.org/api/angular.element
-        */
+     */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
 
@@ -1979,21 +1972,19 @@ declare namespace angular {
     }
 }
 
-declare global {
-    interface JQuery {
-        // TODO: events, how to define?
-        //$destroy
+interface JQuery {
+    // TODO: events, how to define?
+    //$destroy
 
-        find(element: any): JQuery;
-        find(obj: JQuery): JQuery;
-        controller(name?: string): any;
-        injector(): ng.auto.IInjectorService;
-        /** It's declared generic for custom scope interfaces */
-        scope<T extends ng.IScope>(): T;
-        isolateScope<T extends ng.IScope>(): T;
+    find(element: any): JQuery;
+    find(obj: JQuery): JQuery;
+    controller(name?: string): any;
+    injector(): ng.auto.IInjectorService;
+    /** It's declared generic for custom scope interfaces */
+    scope<T extends ng.IScope>(): T;
+    isolateScope<T extends ng.IScope>(): T;
 
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
-    }
+    inheritedData(key: string, value: any): JQuery;
+    inheritedData(obj: { [key: string]: any; }): JQuery;
+    inheritedData(key?: string): any;
 }

@@ -1,5 +1,5 @@
 ﻿module app {
-    export class Student {
+     class Student {
         Name: string;
         phone: string;
 
