@@ -1,15 +1,22 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
-    <script src="Scripts/angular.js"></script>
-    <script src="Scripts/angular-ui-router.js"></script>
+    <div ui-view>
 
+    </div>
+
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-ui-router.js"></script>
+    
+    
     <!--local script files-->
-    <script src="app/app.configuration.js"></script>
+    <script src="app/app.config.js"></script>
+    
     <script src="app/home/HomeController.js"></script>
     <script src="app/student/StudentController.js"></script>
 </body>
