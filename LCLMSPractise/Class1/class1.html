@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="">
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <title></title>
@@ -8,9 +8,13 @@
     <script src="../Scripts/angular.js"></script>
     <script src="cls1.js"></script>
 </head>
-<body>
-    <input ng-model="name">
+<body ng-controller="StudentController as stc">
+    <!--<input ng-model="name">
     <h1>
         You entered: {{name}}
-    </h1></body>
+    </h1>
+
+        -->
+    <button ng-click="stc.getStudentInfo()">Got</button>
+</body>
 </html>

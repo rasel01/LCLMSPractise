@@ -10,16 +10,20 @@
 
     }
 
+     class StudentController {
 
+         getStudentInfo(): void {
 
-    let std = new Student();
-    std.Name = "test";
-    std.phone = "123";
+             let std = new Student();
+             std.Name = "test";
+             std.phone = "123";
 
+             console.log(std.GetInfo());
+         }
+     }
 
-    std.GetInfo();
-
-    console.log(std.GetInfo());
+     var app = angular.module('app', []);
+     angular.module('app').controller("StudentController", StudentController);
 
 
 }
