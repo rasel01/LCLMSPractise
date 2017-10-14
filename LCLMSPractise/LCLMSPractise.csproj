@@ -132,6 +132,11 @@
     <Content Include="obj\Debug\LCLMSPractise.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\LCLMSPractise.dll" />
     <Content Include="obj\Debug\LCLMSPractise.pdb" />
+    <Content Include="partials\home\home.tpl.html" />
+    <Content Include="partials\student\student-add.tpl.html" />
+    <Content Include="partials\student\student-list.tpl.html" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
