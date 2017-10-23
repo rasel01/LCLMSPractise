@@ -44,11 +44,6 @@ module App {
         }
 
 
-        //registration classs :
-
-
-
-
     }
     angular.module('app').config(Configuration);
 

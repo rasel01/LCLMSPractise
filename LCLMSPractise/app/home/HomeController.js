@@ -10,5 +10,6 @@ var App;
         }
         return HomeController;
     }());
+    angular.module('app').controller("HomeController", HomeController);
 })(App || (App = {}));
 //# sourceMappingURL=HomeController.js.map
