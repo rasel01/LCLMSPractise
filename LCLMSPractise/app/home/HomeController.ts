@@ -1,14 +1,24 @@
 ﻿module App {
 
-    //class home {
-    //    now: string;
-    //}
-
     class HomeController {
-        
-        constructor() {
+
+        static $inject = ["StudentService"];
+        constructor(studentservice: StudentService) {
             console.log("I am in home controller");
             this.now = new Date().toString();
+
+
+            studentservice.get()
+                .then(
+                function (success) {
+                    console.log(success);
+                },
+                function (error) {
+                    console.log(error);
+                    alert(error);
+                }
+            );
+
         }
         now: string;
     }
