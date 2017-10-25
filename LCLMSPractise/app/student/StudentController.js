@@ -3,9 +3,6 @@ var App;
     var Student = (function () {
         function Student() {
         }
-        Student.prototype.getInfo = function () {
-            return this.Name + "" + this.Phone;
-        };
         return Student;
     }());
     App.Student = Student;
@@ -14,12 +11,21 @@ var App;
             this.student = new Student();
             this.studentservice = studentservice;
         }
-        StudentAddController.prototype.Display = function () {
-            this.info = this.student.getInfo();
-        };
+        //Display(): void {
+        //    this.info = this.student.getInfo();
+        //}
         StudentAddController.prototype.Add = function () {
-            this.studentservice.students.push(this.student);
-            this.student = new Student();
+            var self = this;
+            //this.studentservice.students.push(this.student);
+            var success = function (SuccessResponse) {
+                console.log(SuccessResponse);
+                self.Reset();
+            };
+            var error = function (ErrorResponse) {
+                console.log(ErrorResponse);
+            };
+            this.studentservice.save(self.student).then(success, error);
+            //this.student = new Student();
         };
         StudentAddController.prototype.Reset = function () {
             this.student = new Student();
@@ -31,8 +37,16 @@ var App;
     var StudentListController = (function () {
         function StudentListController(studentservice) {
             this.studentservice = studentservice;
-            this.studentList = this.studentservice.students;
-            console.log("This is student list page", this.studentList);
+            var self = this;
+            self.studentList = [];
+            var success = function (response) {
+                self.studentList = response.data;
+                console.log(self.studentList);
+            };
+            var error = function (errorResponse) {
+                alert(errorResponse);
+            };
+            this.studentservice.get().then(success, error);
         }
         return StudentListController;
     }());

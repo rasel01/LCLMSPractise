@@ -31,8 +31,28 @@
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             }
-            self.http.get("http://localhost:53611//api/values")
+            self.http.get("http://localhost:53611//api/Students")
                 .then(Sfunc, Efunc);
+            return deffered.promise;
+        }
+
+        save(student:Student): angular.IPromise<any> {
+            var self = this;
+            var deffered = self.q.defer();
+
+            var Sfunc = function(successResponse) {
+                console.log(successResponse);
+                deffered.resolve(successResponse);
+            }
+            var Efunc = function (errorResponse) {
+                console.log(errorResponse);
+                deffered.reject(errorResponse);
+            }
+
+            self.http.post("http://localhost:53611//api/Students", student).then(Sfunc, Efunc);
+               
+           
+
             return deffered.promise;
         }
 

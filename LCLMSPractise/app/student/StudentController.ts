@@ -1,10 +1,12 @@
 ﻿module App {
+
+   
+
     export class Student {
-        Name: string;
-        Phone: string;
-        getInfo(): string {
-            return this.Name + "" + this.Phone;
-        }
+        id: string;
+        name: string;
+        phone: string;
+
     }
 
     class StudentAddController {
@@ -18,15 +20,30 @@
             this.studentservice = studentservice;
         }
 
-        Display(): void {
-            this.info = this.student.getInfo();
-        }
+        //Display(): void {
+        //    this.info = this.student.getInfo();
+        //}
 
 
 
         Add(): void {
-            this.studentservice.students.push(this.student);
-            this.student = new Student();
+
+            var self = this;
+
+            //this.studentservice.students.push(this.student);
+
+            let success = function (SuccessResponse) {
+                console.log(SuccessResponse);
+                self.Reset();
+
+            };
+
+            let error = function (ErrorResponse) {
+                console.log(ErrorResponse);
+            }
+
+            this.studentservice.save(self.student).then(success, error);
+            //this.student = new Student();
         }
         Reset(): void {
             this.student = new Student();
@@ -43,8 +60,18 @@
         static $inject = ["StudentService"];
         constructor(studentservice: StudentService) {
             this.studentservice = studentservice;
-            this.studentList = this.studentservice.students;
-            console.log("This is student list page", this.studentList);
+            let self = this;
+            self.studentList = [];
+            let success = function(response) {
+                self.studentList = response.data;
+                console.log(self.studentList);
+            };
+            let error = function(errorResponse) {
+                alert(errorResponse);
+            }
+
+            
+            this.studentservice.get().then(success,error);
         }
 
 
