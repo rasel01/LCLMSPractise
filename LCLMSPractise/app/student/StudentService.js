@@ -23,7 +23,7 @@ var App;
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            self.http.get("https://www.youtube.com")
+            self.http.get("http://localhost:53611//api/values")
                 .then(Sfunc, Efunc);
             return deffered.promise;
         };
