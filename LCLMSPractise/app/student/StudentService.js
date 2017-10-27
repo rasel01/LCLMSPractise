@@ -12,21 +12,20 @@ var App;
             //console.info("Intiating", this.students);
             // console.log(this.http);
         }
-        StudentService.prototype.get = function () {
-            var self = this;
-            var deffered = self.q.defer();
-            var Sfunc = function (successResponse) {
-                console.log(successResponse);
-                deffered.resolve(successResponse);
-            };
-            var Efunc = function (errorResponse) {
-                console.log(errorResponse);
-                deffered.reject(errorResponse);
-            };
-            self.http.get("http://localhost:53611//api/Students")
-                .then(Sfunc, Efunc);
-            return deffered.promise;
-        };
+        //get(): angular.IPromise<any> {
+        //    var self = this;
+        //    var deffered = self.q.defer();
+        //    var Sfunc = function (successResponse) {
+        //        console.log(successResponse);
+        //        deffered.resolve(successResponse);
+        //    }
+        //    var Efunc = function (errorResponse) {
+        //        console.log(errorResponse);
+        //        deffered.reject(errorResponse);
+        //    }
+        //   // self.http.get("http://localhost:50694/api/StudentQuery").then(Sfunc, Efunc);
+        //    return deffered.promise;
+        //}
         StudentService.prototype.save = function (student) {
             var self = this;
             var deffered = self.q.defer();
@@ -38,7 +37,21 @@ var App;
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            self.http.post("http://localhost:53611//api/Students", student).then(Sfunc, Efunc);
+            self.http.post("http://localhost:50694/api/Student", student).then(Sfunc, Efunc);
+            return deffered.promise;
+        };
+        StudentService.prototype.search = function (request) {
+            var self = this;
+            var deffered = self.q.defer();
+            var Sfunc = function (successResponse) {
+                console.log(successResponse);
+                deffered.resolve(successResponse);
+            };
+            var Efunc = function (errorResponse) {
+                console.log(errorResponse);
+                deffered.reject(errorResponse);
+            };
+            self.http.post("http://localhost:50694/api/StudentQuery", request).then(Sfunc, Efunc);
             return deffered.promise;
         };
         return StudentService;

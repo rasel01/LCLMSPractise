@@ -8,16 +8,6 @@
             this.now = new Date().toString();
 
 
-            studentservice.get()
-                .then(
-                function (success) {
-                    console.log(success);
-                },
-                function (error) {
-                    console.log(error);
-                    alert(error);
-                }
-            );
 
         }
         now: string;

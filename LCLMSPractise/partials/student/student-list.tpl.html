@@ -1,9 +1,12 @@
 ﻿
+<input type="text" ng-model="vm.searchRequest.name" placeholder="enter name" />
+<input type="text" ng-model="vm.searchRequest.phone" placeholder="enter phone" />
+<button ng-click="vm.search()">Search</button>
 <table>
     <thead>
         <tr>
-            <td>Name</td>
-            <td>Phone</td>
+            <td ng-click="vm.sort('name')">Name</td>
+            <td ng-click="vm.sort('phone')">Phone</td>
         </tr>
     </thead>
 
@@ -15,6 +18,11 @@
     </tbody>
 
 </table>
+<button ng-click="vm.previous()">prev</button>
+<label>current :{{vm.searchRequest.Page}}</label>
+<button ng-click="vm.next()">next</button>
+
+
 
 
 

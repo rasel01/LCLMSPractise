@@ -6,6 +6,12 @@ var App;
         return Student;
     }());
     App.Student = Student;
+    var StudentRequestModel = (function () {
+        function StudentRequestModel() {
+        }
+        return StudentRequestModel;
+    }());
+    App.StudentRequestModel = StudentRequestModel;
     var StudentAddController = (function () {
         function StudentAddController(studentservice) {
             this.student = new Student();
@@ -36,9 +42,12 @@ var App;
     angular.module('app').controller("StudentAddController", StudentAddController);
     var StudentListController = (function () {
         function StudentListController(studentservice) {
+            console.log("StudentList Controller Found");
             this.studentservice = studentservice;
             var self = this;
             self.studentList = [];
+            self.searchRequest = new StudentRequestModel();
+            self.searchRequest.Page = 1;
             var success = function (response) {
                 self.studentList = response.data;
                 console.log(self.studentList);
@@ -46,8 +55,39 @@ var App;
             var error = function (errorResponse) {
                 alert(errorResponse);
             };
-            this.studentservice.get().then(success, error);
+            //  this.studentservice.get().then(success, error);
+            this.studentservice.search(self.searchRequest).then(success, error);
         }
+        StudentListController.prototype.search = function () {
+            var self = this;
+            //this.studentservice.students.push(this.student);
+            var success = function (SuccessResponse) {
+                console.log(SuccessResponse);
+                self.studentList = SuccessResponse.data;
+            };
+            var error = function (ErrorResponse) {
+                console.log(ErrorResponse);
+            };
+            this.studentservice.search(self.searchRequest).then(success, error);
+        };
+        StudentListController.prototype.sort = function (poperty) {
+            var self = this;
+            self.searchRequest.OrderBy = poperty;
+            self.searchRequest.IsAcesnding = !self.searchRequest.IsAcesnding;
+            self.search();
+        };
+        StudentListController.prototype.previous = function () {
+            var self = this;
+            if (self.searchRequest.Page > 1) {
+                self.searchRequest.Page = self.searchRequest.Page - 1;
+                this.search();
+            }
+        };
+        StudentListController.prototype.next = function () {
+            var self = this;
+            self.searchRequest.Page = self.searchRequest.Page + 1;
+            this.search();
+        };
         return StudentListController;
     }());
     StudentListController.$inject = ["StudentService"];
